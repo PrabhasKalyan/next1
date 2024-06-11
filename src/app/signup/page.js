@@ -4,23 +4,35 @@ import axios from "axios";
 import { useState } from "react";
 export default function signup(){
     
-    var [form,setForm]=useState({
-        name:"",
-        email:"",
-        password:"",
-        img:""
-    })
-    const handleChange=(e)=>{
-        const {name,value}=e.target;
-        setForm(()=>({
-            ...form,
-            [name]:value,
+    // var [form,setForm]=useState({
+    //     name:"",
+    //     email:"",
+    //     password:"",
+    // })
+    var [name,setname]=useState('');
+    var [email,setemail]=useState('');
+    var [password,setpass]=useState('');
+    // const handleChange=(e)=>{
+    //     const {name,value}=e.target;
+    //     setForm(()=>({
+    //         ...form,
+    //         [name]:value,
 
-        }));
-    }
-    async function submit(){
-        const res=await axios.post("/api/signup",form);
-        window.location.href="/login";
+    //     }));
+    // }
+    async function submit(event){
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name,email,password}),
+      });
+      const data=await response.json();
+      // const response=await axios.post("/api/signup",{name,email,password},
+      //   {headers: {
+      //     'content-type': 'application/json',
+      //   }});
     }
     return(
         <>
@@ -38,7 +50,7 @@ export default function signup(){
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleChange}
+                  onChange={(e)=>{setemail(e.target.email)}}
                   id="email"
                   name="email"
                   type="email"
@@ -54,7 +66,7 @@ export default function signup(){
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleChange}
+                  onChange={(e)=>{setname(e.target.username)}}
                   id="username"
                   name="username"
                   type="text"
@@ -77,7 +89,7 @@ export default function signup(){
               </div>
               <div className="mt-2">
                 <input
-                  onChange={handleChange}
+                  onChange={(e)=>{setpass(e.target.password)}}
                   id="password"
                   name="password"
                   type="password"

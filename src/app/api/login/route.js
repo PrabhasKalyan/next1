@@ -1,7 +1,7 @@
-import User from "@/app/signup/page";
-import Usersmodel from "@/models/usermodel"
+import User from "/Users/prabhaskalyan/ex/src/app/signup/page";
+import Usersmodel from "/Users/prabhaskalyan/ex/src/models/usermodel"
 const jwt=require("jsonwebtoken");
-export default function login(req,res){
+export default function POST(req,res){
     if (req.method=="POST"){
         const {username,password}=req.data;
         const user=Usersmodel.findOne({username:username});
